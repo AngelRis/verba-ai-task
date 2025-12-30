@@ -19,6 +19,13 @@ function App() {
       const saved=localStorage.getItem('chatMessages');
       if(saved) {
         setMessages(JSON.parse(saved));
+      }else{
+        const welcomeMessage={
+        role: 'ai', 
+        content: 'Hello! How can I help you?', 
+        timestamp: new Date().toISOString()
+      };
+      setMessages([welcomeMessage]);
       }
     } catch (e){
       console.log('No saved messages');
