@@ -44,3 +44,8 @@ In production, the backend logic can be replaced with calls to a real AI service
 The backend would forward user messages to the AI API and return the generated response.  
 The frontend would remain mostly unchanged, as it already follows a service-based API communication pattern.
 
+## Screenshots
+
+![Chat UI](screenshots/Chat-UI.png)
+![Mobile View](screenshots/Mobile-View.png)
+
