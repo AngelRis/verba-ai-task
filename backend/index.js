@@ -1,9 +1,11 @@
 const express=require('express');
 const cors=require('cors');
 const app=express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
+require('dotenv').config();
+
 
 const mockResponses={
     hello:"Hello! How can I assist you today?",
@@ -25,7 +27,31 @@ function getResponse(message){
     }
     return mockResponses.default;
 }
-app.post('/api/chat',(req,res)=>{
+
+async function getGeminiResponse(message) {
+  const response = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + process.env.GEMINI_API_KEY,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              { text: message }
+            ]
+          }
+        ]
+      })
+    }
+  );
+
+  const data= await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+}
+
+
+app.post('/api/chat',async (req,res)=>{
     try{
     const message=req.body.message;
     if(!message){
@@ -33,13 +59,11 @@ app.post('/api/chat',(req,res)=>{
             error:'Message is required!'
         })
     }
-    const response=getResponse(req.body.message);
-    setTimeout(()=>{
-       res.json({
+    const response=await getGeminiResponse(message);
+    res.json({
         answer:response,
         timestamp:new Date().toISOString()
-       }); 
-    },2000);
+    }); 
     }
     catch(err){
         res.status(500).json({
