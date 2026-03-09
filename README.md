@@ -1,10 +1,10 @@
-# Simple AI Chat Interface
+# Verba AI Chat Interface
 
-Responsive AI chat interface for customer support with mock backend.
+Responsive AI chat interface for customer support powered by Gemini API.
 
 ## Tech Stack
 - **Frontend**: React 19, CSS (responsive design, dark mode), LocalStorage (persisting chat history)
-- **Backend**: Node.js + Express, Rule-based mock AI (keyword matching), CORS 
+- **Backend**: Node.js + Express, Gemini 2.5 Flash API integration, CORS 
 
 ## Quick Start
 
@@ -13,7 +13,11 @@ Responsive AI chat interface for customer support with mock backend.
 git clone https://github.com/AngelRis/verba-ai-task.git
 cd verba-ai-task
 ```
-### 2. Run the Backend (Terminal 1)
+### 2. Setup Environment Variables
+Create a .env file inside the backend folder.  
+Copy from .env.example and add your Gemini API key
+
+### 3. Run the Backend (Terminal 1)
 ```bash
 cd backend
 npm install
@@ -21,7 +25,7 @@ npm start
 ```
 Backend runs on http://localhost:3001
 
-### 3. Run the Frontend (Terminal 2)
+### 4. Run the Frontend (Terminal 2)
 ```bash
 cd frontend
 npm install
@@ -34,15 +38,11 @@ Frontend runs on http://localhost:3000
 - Responsive design (mobile-friendly)
 - Dark mode support
 - LocalStorage persistence of chat history
-- Mock AI responses (rule-based keyword matching)
+- Real AI responses via Gemini API
 - Typing indicator (loading state)
 - Message timestamps
 - Basic error handling
 
-## Integration with real AI agent
-In production, the backend logic can be replaced with calls to a real AI service (OpenAI, or a custom ML model).  
-The backend would forward user messages to the AI API and return the generated response.  
-The frontend would remain mostly unchanged, as it already follows a service-based API communication pattern.
 
 ## Screenshots
 
